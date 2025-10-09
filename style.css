@@ -17,7 +17,7 @@ h1 {
 }
 
 .image-container img {
-  width: 100%;
+  width: 20%;
   height: auto;
   display: block;
   transition: opacity 0.3s;
@@ -92,6 +92,7 @@ h1 {
     max-width: 300px;
   }
 }
+
 
 
 
