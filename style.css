@@ -71,7 +71,7 @@ h1 {
 .top-links img {
   width: 200px;           /* adjust to your preferred size */
   height: auto;
-  border-radius: 15px;    /* soft corners */
+  border-radius: 0px;    /* soft corners */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
@@ -92,6 +92,7 @@ h1 {
     max-width: 300px;
   }
 }
+
 
 
 
