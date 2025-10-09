@@ -32,10 +32,58 @@
         <!-- Add more here -->
     </div>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const gallery = document.getElementById("gallery");
+  let loading = false;
+  let imageCount = 6; // number of images already displayed
+  const totalImages = 20; // total number of images you have
+
+  window.addEventListener("scroll", () => {
+    if (loading) return;
+
+    // When near bottom of the page
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 300) {
+      loading = true;
+      loadMoreImages();
+    }
+  });
+
+  function loadMoreImages() {
+    // Load 4 new images at a time
+    const newImages = [];
+    for (let i = 1; i <= 4; i++) {
+      if (imageCount + i > totalImages) break;
+      const index = imageCount + i;
+
+      const container = document.createElement("div");
+      container.className = "image-container";
+
+      const img = document.createElement("img");
+      img.src = `images/image${index}.jpg`;
+      img.alt = `Image ${index}`;
+
+      const hoverImg = document.createElement("img");
+      hoverImg.src = `images/image${index}-hover.jpg`;
+      hoverImg.alt = `Image ${index} hover`;
+      hoverImg.className = "hover";
+
+      container.appendChild(img);
+      container.appendChild(hoverImg);
+      newImages.push(container);
+    }
+
+    newImages.forEach(img => gallery.appendChild(img));
+    imageCount += newImages.length;
+    loading = false;
+  }
+});
+</script>
 
 
 </body>
 </html>
+
 
 
 
