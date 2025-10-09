@@ -4,6 +4,93 @@
   <meta charset="UTF-8">
   <title>Japan Trip Gallery</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      cursor: url('cursor.png'), auto;
+      margin: 20px;
+      background: #f2f2f2;
+      background-image: url('images/background.png'), url('images/background.png');
+      background-repeat: repeat, repeat;
+      background-position: 0 0, 250px 250px; /* brick pattern offset */
+      background-size: 500px 500px; /* adjust for bigger tiles */
+    }
+
+    /* Top clickable images */
+    .top-links {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .top-links img {
+      width: 200px;
+      height: auto;
+      border-radius: 0;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .top-links img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Gallery container */
+    .gallery {
+      position: relative; /* allows absolute positioning of images */
+      width: 1000px; /* total width of gallery */
+      margin: 0 auto;
+      height: auto;
+    }
+
+    /* Image container */
+    .image-container {
+      position: absolute;
+      width: 300px; /* fixed width */
+      height: 200px; /* fixed height */
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .image-container.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .image-container img.base,
+    .image-container img.hover {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .image-container img.hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .image-container:hover img.hover {
+      opacity: 1;
+    }
+
+    /* Responsive top-links */
+    @media (max-width: 700px) {
+      .top-links {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .top-links img {
+        width: 80%;
+        max-width: 300px;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -16,11 +103,11 @@
 
   <!-- Gallery -->
   <div class="gallery" id="gallery">
-    <div class="image-container visible">
+    <div class="image-container visible" style="top:0px; left:0px;">
       <img src="images/image1.png" alt="Tokyo street" class="base">
       <img src="images/image1-hover.png" alt="Tokyo street hover" class="hover">
     </div>
-    <div class="image-container visible">
+    <div class="image-container visible" style="top:0px; left:320px;">
       <img src="images/image2.png" alt="Shrine" class="base">
       <img src="images/image2-hover.png" alt="Shrine hover" class="hover">
     </div>
@@ -31,8 +118,12 @@
     document.addEventListener("DOMContentLoaded", function() {
       const gallery = document.getElementById("gallery");
       let loading = false;
-      let imageCount = 2; // images already on page
-      const totalImages = 4; // total number of images available
+      let imageCount = 2; // already loaded images
+      const totalImages = 4; // total images available
+      const columns = 3; // images per row
+      const imgWidth = 300;
+      const imgHeight = 200;
+      const gap = 20;
 
       window.addEventListener("scroll", () => {
         if (loading) return;
@@ -49,6 +140,12 @@
 
           const container = document.createElement("div");
           container.className = "image-container";
+
+          // Calculate row and column for absolute positioning
+          const row = Math.floor((imageCount + i - 1) / columns);
+          const col = (imageCount + i - 1) % columns;
+          container.style.top = `${row * (imgHeight + gap)}px`;
+          container.style.left = `${col * (imgWidth + gap)}px`;
 
           const baseImg = document.createElement("img");
           baseImg.src = `images/image${index}.png`;
@@ -76,4 +173,3 @@
 
 </body>
 </html>
-
