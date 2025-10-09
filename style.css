@@ -1,107 +1,20 @@
 body {
   font-family: sans-serif;
   cursor: url('cursor.png'), auto;
-  background: #f2f2f2;
-   background-image:
-    url('images/background.png'),
-    url('images/background.png');
-  background-repeat: repeat, repeat;
-  background-position:
-    0 0,
-    50px 50px; /* offset the 2nd layer */
-  background-size: 100px 100px; /* adjust to match your image size */
   margin: 20px;
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 40px;
+  background: #f2f2f2;
 }
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 15px;
 }
 
-.image-container img {
-  width: 20%;
-  height: auto;
-  display: block;
-  transition: opacity 0.3s;
-}
-
-
+/* Image container */
 .image-container {
   position: relative;
   overflow: visible;
-}
-
-.image-container img {
-  width: 100%;  
-  height: auto; 
-  display: block;
-}
-
-.image-container:hover img.hover {
-  opacity: 1;
-}
-
-.pagination {
-  text-align: center;
-  margin-top: 30px;
-}
-
-.pagination a {
-  margin: 0 8px;
-  text-decoration: none;
-  color: blue;
-}
-.title {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.title-image {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Top clickable images (Okinawa, Kyoto, Tokyo) */
-.top-links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;              /* space between images */
-  margin-bottom: 40px;    /* space below before gallery */
-}
-
-.top-links img {
-  width: 200px;           /* adjust to your preferred size */
-  height: auto;
-  border-radius: 0px;    /* soft corners */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-}
-
-.top-links img:hover {
-  transform: scale(1.1);  /* slightly enlarge */
-}
-
-@media (max-width: 700px) {
-  .top-links {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .top-links img {
-    width: 80%;
-    max-width: 300px;
-  }
-}
-
-/* Fade-in animation for newly loaded images */
-.image-container {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
@@ -112,15 +25,42 @@ h1 {
   transform: translateY(0);
 }
 
+.image-container img.base {
+  width: 100%;
+  height: auto;
+  display: block;
+}
 
+.image-container img.hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
 
+.image-container:hover img.hover {
+  opacity: 1;
+}
 
+/* Top links */
+.top-links {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 40px;
+}
 
+.top-links img {
+  width: 200px;
+  height: auto;
+  border-radius: 0;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
 
-
-
-
-
-
-
-
+.top-links img:hover {
+  transform: scale(1.1);
+}
