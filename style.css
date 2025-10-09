@@ -59,6 +59,30 @@ h1 {
   height: auto;
 }
 
+/* Top clickable images (Okinawa, Kyoto, Tokyo) */
+.top-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;              /* space between images */
+  margin-bottom: 40px;    /* space below before gallery */
+}
+
+.top-links img {
+  width: 200px;           /* adjust to your preferred size */
+  height: auto;
+  border-radius: 15px;    /* soft corners */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.top-links img:hover {
+  transform: scale(1.1);  /* slightly enlarge */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* subtle shadow on hover */
+}
+
+
+
 
 
 
