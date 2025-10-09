@@ -9,41 +9,33 @@
 
   <!-- Top clickable images -->
   <div class="top-links">
-    <a href="okinawa.html">
-      <img src="images/okinawa.png" alt="Okinawa">
-    </a>
-    <a href="kyoto.html">
-      <img src="images/kyoto.png" alt="Kyoto">
-    </a>
-    <a href="tokyo.html">
-      <img src="images/tokyo.png" alt="Tokyo">
-    </a>
+    <a href="okinawa.html"><img src="images/okinawa.png" alt="Okinawa"></a>
+    <a href="kyoto.html"><img src="images/kyoto.png" alt="Kyoto"></a>
+    <a href="tokyo.html"><img src="images/tokyo.png" alt="Tokyo"></a>
   </div>
 
   <!-- Gallery -->
   <div class="gallery" id="gallery">
     <div class="image-container visible">
-      <img src="images/image1.png" alt="Tokyo street">
-      <img src="images/image1-hover.png" class="hover" alt="Tokyo street hover">
+      <img src="images/image1.png" alt="Tokyo street" class="base">
+      <img src="images/image1-hover.png" alt="Tokyo street hover" class="hover">
     </div>
     <div class="image-container visible">
-      <img src="images/image2.png" alt="Shrine">
-      <img src="images/image2-hover.png" class="hover" alt="Shrine hover">
+      <img src="images/image2.png" alt="Shrine" class="base">
+      <img src="images/image2-hover.png" alt="Shrine hover" class="hover">
     </div>
-    <!-- Add more initial images here if needed -->
   </div>
 
-  <!-- Infinite scroll + fade-in script -->
+  <!-- Infinite scroll -->
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       const gallery = document.getElementById("gallery");
       let loading = false;
-      let imageCount = 2; // number of images already displayed (image1 & image2)
+      let imageCount = 2; // images already on page
       const totalImages = 20; // total number of images available
 
       window.addEventListener("scroll", () => {
         if (loading) return;
-
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 300) {
           loading = true;
           loadMoreImages();
@@ -51,7 +43,6 @@
       });
 
       function loadMoreImages() {
-        const newImages = [];
         for (let i = 1; i <= 4; i++) {
           if (imageCount + i > totalImages) break;
           const index = imageCount + i;
@@ -59,28 +50,25 @@
           const container = document.createElement("div");
           container.className = "image-container";
 
-          const img = document.createElement("img");
-          img.src = `images/image${index}.png`;
-          img.alt = `Image ${index}`;
+          const baseImg = document.createElement("img");
+          baseImg.src = `images/image${index}.png`;
+          baseImg.alt = `Image ${index}`;
+          baseImg.className = "base";
 
           const hoverImg = document.createElement("img");
           hoverImg.src = `images/image${index}-hover.png`;
           hoverImg.alt = `Image ${index} hover`;
           hoverImg.className = "hover";
 
-          container.appendChild(img);
+          container.appendChild(baseImg);
           container.appendChild(hoverImg);
           gallery.appendChild(container);
 
-          // trigger fade-in animation
           requestAnimationFrame(() => {
             container.classList.add("visible");
           });
-
-          newImages.push(container);
         }
-
-        imageCount += newImages.length;
+        imageCount += 4;
         loading = false;
       }
     });
