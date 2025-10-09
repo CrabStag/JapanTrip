@@ -1,114 +1,90 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <div class="title">
-</div>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Japan Trip Gallery</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-   <div class="top-links">
-  <a href="okinawa.html">
-    <img src="images/okinawa.png" alt="Okinawa">
-  </a>
-  <a href="kyoto.html">
-    <img src="images/kyoto.png" alt="Kyoto">
-  </a>
-  <a href="tokyo.html">
-    <img src="images/tokyo.png" alt="Tokyo">
-  </a>
-</div>
-
-<div class="gallery" id="gallery">
-  <div class="image-container visible">
-    <img src="images/image1.png" alt="Tokyo street">
-    <img src="images/image1-hover.png" class="hover" alt="Tokyo street hover">
+  <!-- Top clickable images -->
+  <div class="top-links">
+    <a href="okinawa.html">
+      <img src="images/okinawa.png" alt="Okinawa">
+    </a>
+    <a href="kyoto.html">
+      <img src="images/kyoto.png" alt="Kyoto">
+    </a>
+    <a href="tokyo.html">
+      <img src="images/tokyo.png" alt="Tokyo">
+    </a>
   </div>
-  <div class="image-container visible">
-    <img src="images/image2.png" alt="Shrine">
-    <img src="images/image2-hover.png" class="hover" alt="Shrine hover">
+
+  <!-- Gallery -->
+  <div class="gallery" id="gallery">
+    <div class="image-container visible">
+      <img src="images/image1.png" alt="Tokyo street">
+      <img src="images/image1-hover.png" class="hover" alt="Tokyo street hover">
+    </div>
+    <div class="image-container visible">
+      <img src="images/image2.png" alt="Shrine">
+      <img src="images/image2-hover.png" class="hover" alt="Shrine hover">
+    </div>
+    <!-- Add more initial images here if needed -->
   </div>
-</div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const gallery = document.getElementById("gallery");
-  let loading = false;
-  let imageCount = 6; // number of images already displayed
-  const totalImages = 20; // total number of images you have
+  <!-- Infinite scroll + fade-in script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const gallery = document.getElementById("gallery");
+      let loading = false;
+      let imageCount = 2; // number of images already displayed (image1 & image2)
+      const totalImages = 20; // total number of images available
 
-  window.addEventListener("scroll", () => {
-    if (loading) return;
+      window.addEventListener("scroll", () => {
+        if (loading) return;
 
-    // When near bottom of the page
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 300) {
-      loading = true;
-      loadMoreImages();
-    }
-  });
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const gallery = document.getElementById("gallery");
-  let loading = false;
-  let imageCount = 6; // number of images already displayed
-  const totalImages = 20; // total number of images available
-
-  window.addEventListener("scroll", () => {
-    if (loading) return;
-
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 300) {
-      loading = true;
-      loadMoreImages();
-    }
-  });
-
-  function loadMoreImages() {
-    const newImages = [];
-    for (let i = 1; i <= 4; i++) {
-      if (imageCount + i > totalImages) break;
-      const index = imageCount + i;
-
-      const container = document.createElement("div");
-      container.className = "image-container";
-
-      const img = document.createElement("img");
-      img.src = `images/image${index}.png`;
-      img.alt = `Image ${index}`;
-
-      const hoverImg = document.createElement("img");
-      hoverImg.src = `images/image${index}-hover.png`;
-      hoverImg.alt = `Image ${index} hover`;
-      hoverImg.className = "hover";
-
-      container.appendChild(img);
-      container.appendChild(hoverImg);
-      gallery.appendChild(container);
-
-      // delay fade-in so the animation triggers
-      requestAnimationFrame(() => {
-        container.classList.add("visible");
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 300) {
+          loading = true;
+          loadMoreImages();
+        }
       });
 
-      newImages.push(container);
-    }
+      function loadMoreImages() {
+        const newImages = [];
+        for (let i = 1; i <= 4; i++) {
+          if (imageCount + i > totalImages) break;
+          const index = imageCount + i;
 
-    imageCount += newImages.length;
-    loading = false;
-  }
-});
-</script>
+          const container = document.createElement("div");
+          container.className = "image-container";
 
+          const img = document.createElement("img");
+          img.src = `images/image${index}.png`;
+          img.alt = `Image ${index}`;
 
+          const hoverImg = document.createElement("img");
+          hoverImg.src = `images/image${index}-hover.png`;
+          hoverImg.alt = `Image ${index} hover`;
+          hoverImg.className = "hover";
+
+          container.appendChild(img);
+          container.appendChild(hoverImg);
+          gallery.appendChild(container);
+
+          // trigger fade-in animation
+          requestAnimationFrame(() => {
+            container.classList.add("visible");
+          });
+
+          newImages.push(container);
+        }
+
+        imageCount += newImages.length;
+        loading = false;
+      }
+    });
+  </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
