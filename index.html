@@ -48,9 +48,23 @@ document.addEventListener("DOMContentLoaded", function() {
       loadMoreImages();
     }
   });
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const gallery = document.getElementById("gallery");
+  let loading = false;
+  let imageCount = 6; // number of images already displayed
+  const totalImages = 20; // total number of images available
+
+  window.addEventListener("scroll", () => {
+    if (loading) return;
+
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 300) {
+      loading = true;
+      loadMoreImages();
+    }
+  });
 
   function loadMoreImages() {
-    // Load 4 new images at a time
     const newImages = [];
     for (let i = 1; i <= 4; i++) {
       if (imageCount + i > totalImages) break;
@@ -70,10 +84,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
       container.appendChild(img);
       container.appendChild(hoverImg);
+      gallery.appendChild(container);
+
+      // delay fade-in so the animation triggers
+      requestAnimationFrame(() => {
+        container.classList.add("visible");
+      });
+
       newImages.push(container);
     }
 
-    newImages.forEach(img => gallery.appendChild(img));
     imageCount += newImages.length;
     loading = false;
   }
@@ -81,8 +101,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 
+
 </body>
 </html>
+
 
 
 
